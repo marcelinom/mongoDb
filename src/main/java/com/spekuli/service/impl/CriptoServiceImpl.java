@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +16,7 @@ import com.spekuli.exception.RegraNegocioException;
 import com.spekuli.indicadores.AVistaDiario;
 import com.spekuli.model.dao.CriptoCustomRepository;
 import com.spekuli.model.dao.GapRepository;
-import com.spekuli.model.dao.ScalperRepository;
+import com.spekuli.model.dao.ScalperCustomRepository;
 import com.spekuli.model.entity.Cripto;
 import com.spekuli.model.entity.Gap;
 import com.spekuli.model.entity.Scalper;
@@ -29,11 +31,11 @@ import eu.verdelhan.ta4j.indicators.simple.AvgPriceIndicator;
 @Service
 public class CriptoServiceImpl implements CriptoService {
 	@Autowired private CriptoCustomRepository histRepo;
-	@Autowired private ScalperRepository snapRepo;
+	@Autowired private ScalperCustomRepository snapRepo;
 	@Autowired private GapRepository gapRepo;
 
 	public TimeSeries buscaScalper(String codigo, Date inicio, Date fim) throws RegraNegocioException {
-		List<Scalper> lista = snapRepo.listar(codigo, inicio, fim);
+		List<Scalper> lista = snapRepo.listByCodigoPeriod(codigo, inicio, fim);
 
 		TimeSeries serie = new TimeSeries(codigo+","+codigo);
 		for (Scalper scalper : lista) {
@@ -105,8 +107,8 @@ public class CriptoServiceImpl implements CriptoService {
 	}
 
 	@Override
-	public List<String> buscaMoeda(String codigo) throws RegraNegocioException {
-		ArrayList<String> lista = new ArrayList<String>();
+	public Set<String> buscaMoeda(String codigo) throws RegraNegocioException {
+		TreeSet<String> lista = new TreeSet<String>();
 		for (Symbol coin : Symbol.values()) {
 			lista.add(coin.getCode());
 		}

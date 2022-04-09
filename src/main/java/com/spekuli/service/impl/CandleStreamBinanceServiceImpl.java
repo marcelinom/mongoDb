@@ -23,10 +23,11 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class CandleStreamBinanceServiceImpl implements CandleStreamBinanceService {
     private final ScalperRepository repository;
+    public WebsocketClientImpl client;
 
 	public void mineData(LocalDate end, Interval interval) {
         log.info("Mine data for: {} to: {} for {} with interval: {}", end, interval);
-        WebsocketClientImpl client = new WebsocketClientImpl();
+        client = new WebsocketClientImpl();
 		ArrayList<String> streams = new ArrayList<>();
 		for (Symbol coin : Symbol.values()) {
 			streams.add(coin.getCode().toLowerCase()+"@kline_"+interval.getCode());			

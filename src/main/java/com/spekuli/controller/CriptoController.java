@@ -2,7 +2,7 @@ package com.spekuli.controller;
 
 import java.time.LocalDate;
 import java.util.GregorianCalendar;
-import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -68,9 +68,30 @@ public class CriptoController {
 	public ResponseEntity<Cripto> gravaCripto(@PathVariable("codigo") String codigo, @PathVariable("hora") String hora, @PathVariable("valor") String valor) throws RegraNegocioException {
 		return ResponseEntity.ok().body(cripto.gravarCripto(codigo, hora, valor));
 	}
+	
+	@GetMapping("/scalping/{codigo}/{timeframe}/{inicio}/{fim}")
+	public ResponseEntity<AnaliseGrafica> obterDadosScalping(@PathVariable("codigo") String codigo, @PathVariable("timeframe") int timeFrame, @PathVariable("inicio") String inicio, @PathVariable("fim") String fim) throws NumberFormatException, RegraNegocioException {
+    	String[] sInicio = inicio.split("-");
+    	String[] sFim = fim.split("-");
+
+		if (stream.client == null) {
+			stream.mineData(LocalDate.parse(fim), Interval.ONE_MIN);
+		}
+		
+		TimeSeries series = cripto.buscaScalper(codigo.toUpperCase().trim(),
+	    			new GregorianCalendar(Integer.valueOf(sInicio[0]),Integer.valueOf(sInicio[1])-1,Integer.valueOf(sInicio[2])).getTime(), 
+	    			new GregorianCalendar(Integer.valueOf(sFim[0]),Integer.valueOf(sFim[1])-1,Integer.valueOf(sFim[2])).getTime());
+    	
+		if (series != null && series.getTickCount()>0) {
+        	AnaliseGrafica graf = calculo.painelAVistaDiario(series, timeFrame);
+        	if (graf != null) return ResponseEntity.ok().body(graf);
+    	}
+		
+    	return ResponseEntity.ok().build();
+	}	
 
 	@GetMapping("/codigo/listar")
-	public ResponseEntity<List<String>> buscaCodigos(@RequestParam("term") String codigo) throws RegraNegocioException {
+	public ResponseEntity<Set<String>> buscaCodigos(@RequestParam("term") String codigo) throws RegraNegocioException {
 		return ResponseEntity.ok().body(cripto.buscaMoeda(codigo));
 	}
 	

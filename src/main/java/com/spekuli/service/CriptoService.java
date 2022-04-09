@@ -2,7 +2,7 @@ package com.spekuli.service;
 
 
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 import com.spekuli.exception.RegraNegocioException;
 import com.spekuli.model.entity.Cripto;
@@ -15,6 +15,6 @@ public interface CriptoService {
 	TimeSeries buscaSerieTemporal(String codigo, Date inicio, Date fim);
 	void gravarGaps(String codigo, Date inicio, Date fim) throws RegraNegocioException;
 	Cripto gravarCripto(String codigo, String hora, String valor) throws RegraNegocioException;
-	List<String> buscaMoeda(String codigo) throws RegraNegocioException;
+	Set<String> buscaMoeda(String codigo) throws RegraNegocioException;
 	
 }

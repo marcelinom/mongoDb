@@ -206,7 +206,7 @@ function plotar(onde, detalhar) {
 	$("#spinner").show();
 	if (detalhar) desenhar(onde, opcoes);
 	else {
-		var servico = dayTrade?"/TomcatStock/rest/serie/scalping":"/cripto/temporal";
+		var servico = dayTrade?"/cripto/scalping":"/cripto/temporal";
 		obterDados(onde, opcoes, servico, acao, seq, inicio, fim);
 	}
 
