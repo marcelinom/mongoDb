@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="nossologApp" id="top">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>NossoLog</title>
+
+    <script src="lib/angular/angular.js"></script> 
+    <script src="lib/angular/angular-route.js"></script> 
+    <script src="lib/angular/i18n/angular-locale_pt-br.js"></script> 
+    <script src="lib/ui-bootstrap-tpls-0.10.0.js"></script>   
+    <script src="js/app.js"></script> 
+
+    <script src="js/carga/detalheCtrl.js"></script> 
+    <script src="js/carga/novoCtrl.js"></script> 
+    <script src="js/carga/listCtrl.js"></script> 
+    <script src="js/carga/componente/tabelaCtrl.js"></script>
+		
+	<link href="css/bootstrap.css" rel="stylesheet"> 		
+	<link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/tabela.css" rel="stylesheet" type="text/css" />
+	<link href="css/green.css" rel="stylesheet">  
+	<link href="favicon.ico" rel="SHORTCUT ICON"/>	
+
+  </head>
+  <body class="ng-cloak">
+	<div class="container">
+       <div class="page-header" ng-view></div>
+	</div>		
+  </body>
+</html>

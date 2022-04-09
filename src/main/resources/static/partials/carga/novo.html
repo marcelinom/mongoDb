@@ -1,0 +1,96 @@
+<header style="background-color:#DEEEDE;" class="navbar navbar-default navbar-fixed-top">
+    <div class="navbar-inner" ng-include="'menus/basico.html'"></div>
+</header>
+
+<div style="margin-bottom:10px;margin-top:90px">
+   <span style="font-size:30px;cursor:default;">Carga a ser transportada</span>
+   <i popover="Cadastra os dados mais relevantes para o transporte rodoviário da sua carga. Uma vez cadastrado você pode enviar, periodicamente, múltiplos pedidos de frete para esta carga" 
+      popover-placement="bottom" popover-trigger="mouseenter" style="cursor:pointer;font-size:20px;vertical-align:super;color:darkcyan" class="fa fa-info-circle"></i>
+</div>
+<div> 
+  <table>
+    <tr>
+       <td style="padding-right:10px">
+	   	   <span style="font-size:18px">Descrição:</span>
+	   </td>  
+	   <td>
+   	   	   <i popover="Informe os dados relevantes para o perfeito entendimento do que é a carga e, eventualmente, os requisitos adicionais para o seu transporte como, por exemplo, se a carga precisa ser refrigerada; se o motorista deve estar qualificado para o transporte de produtos perigosos; etc." 
+		      popover-placement="bottom" popover-trigger="mouseenter" style="cursor:pointer;color:darkcyan" class="fa fa-question-circle"></i>
+	   </td>
+       <td width="100%" colspan="3">
+	   	   <textarea maxlength="300" placeholder="Informação detalhada do conteúdo a ser transportado, incluindo seu peso e/ou volume, natureza, cuidados necessários, etc." ng-model="carga.descricao" class="form-control"></textarea>
+	   </td>
+    </tr>
+    <tr>
+       <td>
+	   	   <span style="font-size:18px">Pagamento: </span>
+	   </td>  
+       <td style="vertical-align:middle;padding-right:10px">
+	   	  <i popover="Unidade monetária para o pagamento do frete. Se o transporte for realizado em apenas uma viagem, selecione 'Fixo'; caso contrário, selecione 'Variável', pois neste caso a remuneração deverá ser proporcional à quantidade transportada" 
+		     popover-placement="bottom" popover-trigger="mouseenter" style="cursor:pointer;color:darkcyan" class="fa fa-question-circle"></i>
+	   </td>  
+       <td>
+	    <table>
+    	 <tr>
+		  <td>
+         	 <select class="form-control" ng-model="tipoPgto" ng-change="atualizaUnidade()">
+  	 	       <option value="FIXO">Fixo</option>
+               <option value="VARIAVEL">Variável</option>
+             </select>
+		  </td>
+          <td style="padding-left:10px" ng-if="tipoPgto!='FIXO'"><h4>por: </h4></td>  
+          <td style="padding-left:10px" ng-if="tipoPgto!='FIXO'">
+           	 <select class="form-control" ng-model="$parent.pgtoPor" ng-change="atualizaUnidade()">
+               <option value="T">tonelada</option>
+    	 	   <option value="unidade">peça</option>
+               <option value="m3">metro cúbico</option>
+               <option value="&#8467;">litro</option>
+             </select>
+    	  </td>
+		  <td style="padding-left:10px">
+    	   {{'('+carga.unidade+')'}}
+		  </td>  
+    	 </tr>
+		</table>
+    </tr>
+    <tr>
+       <td>
+	   	   <span style="font-size:18px">Origem: </span>
+	   </td>  
+       <td style="vertical-align:middle;padding-right:10px">
+	   	  <i popover="Ao digitar o endereço do local da coleta selecione a opção correspondente que for apresentada. Dados adicionais, que não fazem parte do endereço como, por exemplo, pontos de referência, devem ser digitados no campo complementar" 
+		     popover-placement="bottom" popover-trigger="mouseenter" style="cursor:pointer;color:darkcyan" class="fa fa-question-circle"></i>
+	   </td>  
+       <td colspan="2">
+	   	   <input type="text" ng-model="carga.coleta.descricao" maxlength="200" placeholder="Endereço onde será a coleta" typeahead="address for address in getLocation($viewValue) | filter:$viewValue" typeahead-loading="loadingLocations" typeahead-on-select="plotarOrigem()" ng-blur="plotarOrigem()" class="form-control">
+		   <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>  
+	   </td>
+       <td width="20%"><input type="text" ng-model="carga.complOrigem" maxlength="50" placeholder="Complemento" class="form-control"></td>
+    </tr>
+    <tr>
+       <td>
+	   	   <span style="font-size:18px">Destino: </span>
+	   </td>  
+       <td style="vertical-align:middle;padding-right:10px">
+	   	  <i popover="Ao digitar o endereço do local de entrega selecione a opção correspondente que for apresentada. Dados adicionais, que não fazem parte do endereço como, por exemplo, pontos de referência, devem ser digitados no campo complementar" 
+		     popover-placement="bottom" popover-trigger="mouseenter" style="cursor:pointer;color:darkcyan" class="fa fa-question-circle"></i>
+	   </td>  
+       <td colspan="2">
+	   	   <input type="text" ng-model="carga.destino.descricao" maxlength="200" placeholder="Endereço onde deverá ser entregue" typeahead="address for address in getLocation($viewValue) | filter:$viewValue" typeahead-loading="loadingLocations" typeahead-on-select="plotarDestino()" ng-blur="plotarDestino()" class="form-control">
+		   <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>  
+	   </td>
+       <td width="20%"><input type="text" ng-model="carga.complDestino" maxlength="50" placeholder="Complemento" class="form-control"></td>
+    </tr>
+  </table>
+</div>
+<alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+<iframe ng-mouseleave="$apply()" style="margin-top:10px" id="mapaOrigemDestino" height="400px" width="100%" frameBorder="0" scrolling="no" ng-src="iframes/geolocate.html"></iframe>
+<div align="center"> 
+<br />
+  <button type="button" class="btn btn-default" ng-click="voltar()">Voltar</button>   
+  <div ng-if="aguardar" class="spinner"></div>
+  <button ng-if="!aguardar" style="margin-left:100px;" type="button" ng-mouseover="$apply()" class="btn btn-default" ng-click="insert()">Enviar</button>   
+</div>
+
+
+	

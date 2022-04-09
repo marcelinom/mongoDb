@@ -1,0 +1,31 @@
+body {
+	font: 10px sans-serif;
+}
+
+text {
+	fill: #000;
+}
+
+text.symbol {
+	font: 12px sans-serif;
+	fill: #BBBBBB;
+}
+
+.opcoes {
+	font: 14px sans-serif;
+	margin: auto;
+	width: 80%;
+}
+
+.desenhoFixo {
+	margin: auto;
+	width: 100%;
+	height: 450px;
+}
+
+#quadroRSI, #quadroMACD, #quadroAroon, #quadroStoc, #quadroAD, #quadroOBV {
+	width: 100%;
+	height: 200px;
+	cursor: move;
+	box-shadow: 10px 10px 5px #888888;
+}

@@ -1,0 +1,33 @@
+
+.datagrid table { border-collapse: collapse; width: 100%;} 
+.datagrid {background: #fff; overflow: hidden; border: none; -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; }
+.datagrid table td, 
+.datagrid table th { padding: 1px 2px; cursor:default;}
+.datagrid th a {color:#fff;text-decoration:none;}      /* unvisited link */
+.datagrid th a:link {color:#fff;text-decoration:none;}      /* unvisited link */
+.datagrid th a:visited {color:#fff;text-decoration:none;}  /* visited link */
+.datagrid th a:hover {color:#fff;cursor:pointer;text-decoration:none;}  /* mouse over link */
+.datagrid table thead th {text-align: center; background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #7b9f10), color-stop(1, #4c5c1b) );background:-moz-linear-gradient( center top, #7b9f10 5%, #4c5c1b 100% );filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#7b9f10', endColorstr='#4c5c1b');background-color:#7b9f10; color:#FFFFFF; font-size: 15px; font-weight: bold; border: 2px solid #FFF; }
+.datagrid table thead th:first-child { border: none;}
+.datagrid table tbody th {text-align: center;background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #7b9f10), color-stop(1, #4c5c1b) );background:-moz-linear-gradient( center top, #7b9f10 5%, #4c5c1b 100% );filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#7b9f10', endColorstr='#4c5c1b');background-color:#7b9f10; color:#FFFFFF; font-size: 15px; font-weight: bold; border: 2px solid #FFF; }
+.datagrid table tbody td { color: darkgreen; border: 2px solid #FFF;font-size: 12px;font-weight: normal; }
+.datagrid table tbody 
+.alt td { background: #DFFFDE; color: #275420; }
+.datagrid table tbody td:first-child { border-left: none; }
+.datagrid table tbody tr:last-child td { border-bottom: none; }
+.datagrid table tbody tr:nth-child(odd) { background: #f5f5f5; color: #275420; }
+.datagrid table tbody tr:nth-child(even) { background: #DFFFDE; color: #275420; }
+.datagrid table tbody tr:hover { background-color: #ffff99;}
+
+.datagrid a:link {color:#275420;text-decoration:none;}      /* unvisited link */
+.datagrid a:visited {color:#275420;text-decoration:none;}  /* visited link */
+.datagrid a:hover {color:#275420;cursor:pointer;text-decoration:underline;}  /* mouse over link */
+
+.datagrid table tfoot td div { border-top: 1px solid #36752D;background: #DFFFDE;} 
+.datagrid table tfoot td { padding: 0; font-size: 12px } 
+.datagrid table tfoot td div{ padding: 2px; }
+.datagrid table tfoot td ul { margin: 0; padding:0; list-style: none; text-align: right; }
+.datagrid table tfoot  li { display: inline; }
+.datagrid table tfoot li a { text-decoration: none; display: inline-block;  padding: 2px 8px; margin: 1px;color: #FFFFFF;border: 1px solid #36752D;-webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #36752D), color-stop(1, #275420) );background:-moz-linear-gradient( center top, #36752D 5%, #275420 100% );filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#36752D', endColorstr='#275420');background-color:#36752D; }
+.datagrid table tfoot ul.active, .datagrid table tfoot ul a:hover { text-decoration: none;border-color: #275420; color: #FFFFFF; background: none; background-color:#36752D;}
+div.dhtmlx_window_active, div.dhx_modal_cover_dv { position: fixed !important; } 

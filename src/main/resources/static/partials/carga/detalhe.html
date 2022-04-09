@@ -1,0 +1,191 @@
+<header style="background-color:#DEEEDE;" class="navbar navbar-default navbar-fixed-top">
+    <div class="navbar-inner" ng-include="'menus/basico.html'"></div>
+</header>
+
+<div style="margin-top:90px" ng-if="!cloud_ok" class="spinner"></div>
+<div style="margin-top:90px" ng-if="cloud_ok"> 
+    <h2>Carga <span style="font-size:20px;">#{{carga.codigo}}</span></h2>
+    <table>
+      <tr>
+         <td style="padding-right:10px"><span style="font-size:18px">Descrição: </span></td>  
+         <td>{{carga.descricao}}</td>
+      </tr>
+      <tr>
+         <td style="padding-right:10px"><span style="font-size:18px">Pagamento em: </span></td>  
+         <td>{{carga.unidade}}</td>
+      </tr>
+      <tr>
+         <td style="padding-right:10px"><span style="font-size:18px">Origem: </span></td>  
+         <td>{{carga.coleta.descricao}}</td>
+      </tr>
+      <tr>
+         <td style="padding-right:10px"><span style="font-size:18px">Destino: </span></td>  
+         <td>{{carga.destino.descricao}}</td>
+      </tr>
+      <tr>
+         <td style="padding-right:10px"><span style="font-size:18px">Distância: </span>
+		   <i popover="Distância medida em linha reta, sem levar em consideração elevações de terreno ou estradas. Apenas para referência" 
+		      popover-placement="bottom" popover-trigger="mouseenter" style="cursor:pointer;color:darkcyan" class="fa fa-question-circle"></i>
+		 </td>  
+         <td>{{distancia | number:2}} Km</td>
+      </tr>
+	<tr>
+		<td></td>
+		<td style="padding-bottom:10px; padding-top:10px">
+		    <button type="button" class="btn btn-default" ng-click="novoAnuncio()">Enviar Novo Pedido</button>		 
+		</td>
+	</tr>
+      <tr>
+         <td style="padding-right:10px">
+		   <span style="font-size:18px">Origem ofuscada:</span>
+		   <i popover="Local que será divulgado como origem, para manter sua privacidade. Ao fechar acordo (aceitar uma proposta), o local real (Origem) é enviado ao caminhoneiro contratado" 
+		      popover-placement="bottom" popover-trigger="mouseenter" style="cursor:pointer;color:darkcyan" class="fa fa-question-circle"></i>
+		 </td>  
+         <td>{{carga.coletaOfuscada.descricao}}</td>
+      </tr>
+      <tr>
+         <td style="padding-right:10px">
+		   <span style="font-size:18px">Destino ofuscado:</span>
+		   <i popover="Local que será divulgado como destino, para manter sua privacidade. Ao fechar acordo (aceitar uma proposta), o local real (Destino) é enviado ao caminhoneiro contratado" 
+		      popover-placement="bottom" popover-trigger="mouseenter" style="cursor:pointer;color:darkcyan" class="fa fa-question-circle"></i>
+		 </td>  
+         <td>{{carga.destinoOfuscado.descricao}}</td>
+      </tr>
+    </table>
+  <br /> 
+  <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+  <br/>
+  <div align="center"> 
+    <button type="button" class="btn btn-default" ng-click="voltar()">Voltar</button>   
+	<div ng-if="aguardar" class="spinner"></div>
+	<span ng-controller="ModalConfirmaCtrl">
+    	 <button ng-if="!aguardar && alerts.length==0" style="margin-left:100px;" type="button" class="btn btn-default" ng-click="confirma('Excluir Carga #'+carga.codigo, 'Tem certeza que deseja excluir? Esta ação não poderá ser desfeita.', carga.codigo, callbackExcluirOk)">Excluir</button>		 
+	</span>
+  </div>
+  <br />
+</div>
+
+<br />
+<br />
+   
+<div class="row code">
+  <div class="col-md-12" ng-if="alerts.length==0">
+<tabset>
+    <tab heading="Perguntas" ng-click="buscarPerguntas()">
+    <div ng-if="!cloud_ok" class="spinner"></div>
+    <div ng-if="cloud_ok"> 
+     <div class="inside-tab">
+	 <table style="width:100%">
+	 	<tr>
+  		  <td>
+		  </td>		 
+		  <td width="200px">
+            <div class="input-group margin-bottom-sm">
+              <span class="input-group-addon">
+  			   <i class="fa fa-filter"></i>
+  			  </span>
+  		      <input class="form-control" type="text" ng-model="query">
+            </div>		
+		  </td>
+		</tr>
+	 </table>
+      <div class="datagrid">
+         <table style="width:100%">
+            <thead>
+            <tr>
+               <th>Pergunta<a ng-click="changeSorting('texto')"> <i class="fa fa-sort"></i></a></th> 
+               <th>Resposta<a ng-click="changeSorting('resposta')"> <i class="fa fa-sort"></i></a></th> 
+               <th></th> 
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="pergunta in perguntas | filter:query | orderBy:sort.column:sort.descending">
+               <td>{{pergunta.texto}}<br /><b>{{pergunta.de}} </b><i style="font-size:95%">- {{pergunta.data | date:"medium"}}</i></td>
+               <td ng-if="pergunta.resposta">{{pergunta.resposta}}<br /><i style="font-size:95%">{{pergunta.dataResposta | date:"medium"}}</i></td>
+               <td ng-controller="ModalPerguntaCtrl">
+                  <button class="botao" ng-if="!pergunta.resposta" ng-click="responder(pergunta,login.codigo,callbackResponderOk,callbackResponderErro)">Responder</button>
+      		   </td>
+            </tr>
+    	    <tr>
+    		  <td align="center" colspan="2" ng-show="!perguntas">
+    		    <i style="font-size:14px">Você ainda não recebeu pergunta sobre as condições de transporte para esta carga...</i>
+    		  </td>
+    	    </tr>
+            </tbody>
+         </table>
+      </div>
+	</div>
+	</div>
+	</tab>
+	<tab heading="Pedidos" ng-click="exibePedido()">
+     <div class="inside-tab">
+	 <table style="width:100%">
+	 	<tr>
+		  <td width="200px">
+            <div class="input-group margin-bottom-sm">
+              <span class="input-group-addon">
+  			   <i class="fa fa-filter"></i>
+  			  </span>
+  		      <input class="form-control" type="text" ng-model="queryPedido">
+            </div>		
+		  </td>
+		</tr>
+	 </table>
+	 <div class="datagrid" ng-if="filtroPedido" ng-include="'partials/pedido/componente/tabela.html'"></div> 
+	 </div>
+	</tab>
+	<tab heading="Propostas" ng-click="exibeProposta()">
+     <div class="inside-tab">
+      <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+      <div> 
+    	 <table style="width:100%">
+    	 	<tr>
+      		  <td>
+    		  </td>		 
+    		  <td width="200px">
+                <div class="input-group margin-bottom-sm">
+                  <span class="input-group-addon">
+      			   <i class="fa fa-filter"></i>
+      			  </span>
+      		      <input class="form-control" type="text" ng-model="queryProposta">
+                </div>		
+    		  </td>
+    		</tr>
+    	 </table>
+      </div>
+      <div class="datagrid" ng-if="filtroProposta" ng-include="'partials/proposta/componente/tabelap.html'"></div>
+	 </div>
+	</tab>
+	<tab heading="Fretes" ng-click="exibeFrete()">
+     <div class="inside-tab">
+      <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+      <div> 
+    	 <table style="width:100%">
+    	 	<tr>
+      		  <td>
+    		  </td>		 
+    		  <td width="200px">
+                <div class="input-group margin-bottom-sm">
+                  <span class="input-group-addon">
+      			   <i class="fa fa-filter"></i>
+      			  </span>
+      		      <input class="form-control" type="text" ng-model="queryAcordo">
+                </div>		
+    		  </td>
+    		</tr>
+    	 </table>
+      </div>
+      <div class="datagrid" ng-if="filtroFrete" ng-include="'partials/frete/componente/tabelap.html'"></div>
+	 </div>
+	</tab>
+
+</tabset>
+
+<br /><br /> 
+<br /><br />
+ </div>
+</div>
+
+<div ng-include="'templates/templateResponder.html'"></div>
+
+

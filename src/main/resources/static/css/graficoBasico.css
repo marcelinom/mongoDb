@@ -1,0 +1,154 @@
+path.candle {
+	stroke: #000000;
+}
+
+path.candle.body {
+	stroke-width: 0;
+}
+
+path.candle.up {
+	fill: #00AA00;
+	stroke: #00AA00;
+}
+
+path.candle.down {
+	fill: #FF0000;
+	stroke: #FF0000;
+}
+
+.supstance path {
+	stroke: blue;
+	stroke-width: 0.8;
+	stroke-dasharray: 2, 2;
+}
+
+.axisannotation path {
+	fill: blue;
+}
+
+.axisannotation text {
+	fill: #fff;
+}
+
+.interaction path {
+	pointer-events: all;
+	cursor: ns-resize;
+	stroke: blue;
+	stroke-width: 1;
+}
+
+.trendline {
+	stroke: blue;
+	stroke-width: 0.8;
+}
+
+.trendline circle {
+	stroke-width: 0;
+	display: none;
+}
+
+.interaction circle {
+	pointer-events: all;
+}
+
+.interaction .body {
+	cursor: move;
+}
+
+.interaction .start, .interaction .end {
+	cursor: nwse-resize;
+}
+
+path.volume {
+	fill: rgba(152, 155, 160, 0.4);
+}
+
+.crosshair {
+	cursor: crosshair;
+}
+
+.crosshair path.wire {
+	stroke: #f4b942;
+	stroke-dasharray: 1, 1;
+}
+
+.crosshair .axisannotation path {
+	fill: #f4b942;
+}
+
+.ui-autocomplete-loading {
+	background: white url("../image/ui-anim_basic_16x16.gif") right center
+		no-repeat;
+}
+
+.bollinger path {
+	fill: none;
+	stroke-width: 1;
+}
+
+.bollinger path.upper {
+	stroke: #0000AA;
+}
+
+.bollinger path.lower {
+	stroke: #FF9999;
+}
+
+.bollinger path.middle {
+	stroke: #BBBBBB;
+}
+
+.ma-0 path.line {
+	stroke: #1f77b4;
+}
+
+.ma-1 path.line {
+	stroke: #aec7e8;
+}
+
+.ma-2 path.line {
+	stroke: #ff7f0e;
+}
+
+.indicator path.line {
+	fill: none;
+	stroke-width: 1;
+}
+
+path.tradearrow {
+	stroke: none;
+}
+
+path.tradearrow.buy {
+	fill: #0000FF;
+}
+
+path.tradearrow.sell {
+	fill: #9900FF;
+}
+
+path.tradearrow.gap {
+	fill: #f9f909;
+}
+
+.tradearrow path.highlight {
+	fill: none;
+	stroke-width: 2;
+}
+
+.tradearrow path.highlight.buy {
+	stroke: #0000FF;
+}
+
+.tradearrow path.highlight.sell {
+	stroke: #9900FF;
+}
+
+.tradearrow path.highlight.gap {
+	stroke: #f9f909;
+}
+
+#avg_line {
+    stroke: #42b6f4;
+}
+

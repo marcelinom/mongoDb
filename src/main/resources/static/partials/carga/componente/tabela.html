@@ -1,0 +1,43 @@
+<div ng-controller="TabelaCargaCtrl"> 
+	<div ng-if="!cloud_ok" class="spinner"></div>
+    <table >
+      <thead>
+      <tr>
+         <th style="white-space:nowrap;">Codigo <a ng-click="changeSorting('codigo')"><i class="fa fa-sort"></i></a></th> 
+         <th style="white-space:nowrap;">Hora <a ng-click="changeSorting('hora')"><i class="fa fa-sort"></i></a></th> 
+         <th style="white-space:nowrap;">Valor (R$) <a ng-click="changeSorting('valor')"><i class="fa fa-sort"></i></a></th> 
+         <th style="white-space:nowrap;">Var (%) <a ng-click="changeSorting('var')"><i class="fa fa-sort"></i></a></th> 
+         <th style="white-space:nowrap;">Agressao <a ng-click="changeSorting('deltaMedio')"><i class="fa fa-sort"></i></a></th> 
+         <th style="white-space:nowrap;">Negocios <a ng-click="changeSorting('negocios')"><i class="fa fa-sort"></i></a></th> 
+         <th style="white-space:nowrap;">Buy/Neg <a ng-click="changeSorting('compRel')"><i class="fa fa-sort"></i></a></th> 
+         <th style="white-space:nowrap;">%B+ <a ng-click="changeSorting('ppb')"><i class="fa fa-sort"></i></a></th> 
+         <th style="white-space:nowrap;">%B- <a ng-click="changeSorting('npb')"><i class="fa fa-sort"></i></a></th> 
+         <th style="white-space:nowrap;">B Med <a ng-click="changeSorting('emaPB')"><i class="fa fa-sort"></i></a></th> 
+         <th style="white-space:nowrap;">BBWidth <a ng-click="changeSorting('bBW')"><i class="fa fa-sort"></i></a></th> 
+         <th style="white-space:nowrap;">C/V <a ng-click="changeSorting('qtde')"><i class="fa fa-sort"></i></a></th> 
+      </tr>
+      </thead>
+      <tbody>
+      <tr ng-click="verCarga(carga.codigo)" ng-repeat="carga in cargas | filter:query | orderBy:sort.column:sort.descending">
+         <td>{{carga.codigo}}</td>
+         <td>{{carga.hora}}</td>
+         <td>{{carga.valor | currency : "" : 2}}</td>
+         <td>{{carga.var | number: 2}}</td>
+         <td>{{carga.deltaMedio | number: 2}}</td>
+         <td>{{carga.negocios}}</td>
+         <td>{{carga.compRel | number: 2}}</td>
+         <td>{{carga.ppb | number: 2}}</td>
+         <td>{{carga.npb | number: 2}}</td>
+         <td>{{carga.emaPB | number: 2}}</td>
+         <td>{{carga.bBW | number: 2}}</td>
+         <td ng-show="carga.qtde!=0">{{carga.qtde}}</td>
+         <td ng-show="carga.qtde==0"></td>
+      </tr>
+	  <tr>
+		<td align="center" colspan="12" ng-show="!cargas">
+		  <i style="font-size:14px">Nenhuma acao a apresentar...</i>
+		</td>
+	  </tr>
+      </tbody>
+   </table>
+</div>

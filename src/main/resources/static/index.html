@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<title>Analise Grafica</title>
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> 
+	<link rel="stylesheet" href="css/plugins/jquery-ui.css"> 
+	<link rel="stylesheet" href="css/basico.css">  
+	<link rel="stylesheet" href="css/graficoBasico.css">  
+	<link rel="stylesheet" href="css/graficoRsi.css">  
+	<link rel="stylesheet" href="css/graficoMacd.css">  
+	<link rel="stylesheet" href="css/graficoStochastic.css">  
+	<link rel="stylesheet" href="css/graficoLinha.css">  
+	<link rel="stylesheet" href="css/spinner.css">  
+</head>
+<body>
+	<script src="js/plugins/d3.js"></script>
+	<script src="js/plugins/techan.js"></script>	
+	<script src="js/plugins/jquery.min.js"></script> 
+	<script src="js/plugins/jquery-ui.min.js"></script> 
+	
+	<div class="opcoes">
+	    <table>
+	        <tr>
+	            <td>
+	                Ação: <input type="text" id="acao" placeholder="Codigo da acao"> 
+	            </td>
+	            <td>
+	                TimeFrame: <input type="number" id="seq" min="1" value="18"> 
+	            </td>
+	            <td>
+	                Início: <input type="date" id="dini"> 
+	            </td>
+	            <td>
+	                Fim: <input type="date" id="dfim">  &nbsp;&nbsp;
+	            </td>
+	            <td>
+	                <input type="button" onclick="plotar(onde, false)" value="Atualizar">
+	            </td>
+	        </tr>
+	    </table>
+	    <table>
+	        <tr>
+	            <td>
+	            	<fieldset>
+	            		<legend>Trade</legend> 
+	                	<input type="checkbox" id="daytrade" checked> Day
+	            	</fieldset>
+	            </td>
+	            <td>
+	            	<fieldset>
+	            		<legend>Tipo</legend> 
+	                	<input type="checkbox" id="ohlc" checked onchange="plotar(onde, true)"> OHLC
+		                <input type="checkbox" id="avg" onchange="plotar(onde, true)"> Line 
+	            	</fieldset>
+	            </td>
+	            <td>
+	            	<fieldset>
+	            		<legend>Trendlines</legend> 
+		                <input type="radio" name=trends value="N" onchange="plotar(onde, true)"> No 
+		                <input type="radio" name=trends value="M" onchange="plotar(onde, true)"> P 
+		                <input type="radio" name=trends  value="G" onchange="plotar(onde, true)"> G
+	            	</fieldset>
+	            <td>
+	            	<fieldset>
+	            		<legend>Eventos</legend> 
+	                	<input type="checkbox" id="gap" onchange="plotar(onde, true)"> Gap
+		                <input type="checkbox" id="dica" onchange="plotar(onde, true)"> Dicas 
+	            	</fieldset>
+	            </td>
+	            <td>
+	            	<fieldset>
+	            		<legend>Estatística</legend> 
+		                <input type="checkbox" id="sr" onchange="plotar(onde, true)"> Sup/Res
+		                <input type="checkbox" id="boll" onchange="plotar(onde, true)"> Bollinger
+		                <input type="checkbox" id="sma" onchange="plotar(onde, true)"> SMA
+	            	</fieldset>
+	            </td>
+	            <td>
+	            	<fieldset>
+	            		<legend>Indicadores</legend> 	            
+		                <input type="checkbox" id="rsi" onchange="plotar(onde, true)"> RSI 
+		                <input type="checkbox" id="macd" onchange="plotar(onde, true)"> MACD 
+		                <input type="checkbox" id="stoc" onchange="plotar(onde, true)"> Estoc 
+		                <input type="checkbox" id="obv" onchange="plotar(onde, true)"> OBV
+	            	</fieldset>
+	            </td>
+	        </tr>
+	    </table>
+	</div>
+	
+	<div id="quadro" class="desenhoFixo"></div> 
+ 
+	<div id="spinner" class="spinner"> 
+		<i class="fa fa-spinner fa-pulse fa-4x fa-fw"></i> 
+	</div> 
+		
+	<script src="js/graficoBasico.js"></script>
+	<script src="js/graficoRsi.js"></script>
+	<script src="js/graficoMacd.js"></script>
+	<script src="js/graficoStochastic.js"></script>
+	<script src="js/graficoLinha.js"></script>
+	<script src="js/analiseGrafica.js"></script>
+		
+	<script>
+	    $("#spinner").hide();
+		var onde = ["#quadro", "#quadroRSI", "#quadroMACD", "#quadroStoc", "#quadroOBV"];
+	    plotar(onde, false);
+	</script>
+	
+</body>
+</html>

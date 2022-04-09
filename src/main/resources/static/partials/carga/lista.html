@@ -1,0 +1,24 @@
+<div style="margin-top:90px">
+ 	 <table style="width:100%">
+	 	<tr>
+		  <td width="200px">
+            <div class="input-group margin-bottom-sm">
+              <span class="input-group-addon">
+  			   <i class="fa fa-filter"></i>
+  			  </span>
+  		      <input class="form-control" type="text" ng-model="query">
+            </div>		
+		  </td>
+		  <td>
+		  	  <input type="checkbox" ng-model="trade.aberto"> Negociar
+		  </td>
+		  <td>
+		  	  <button type="button" class="btn btn-default" ng-click="salvar()">Salvar</button>
+		  </td>		 
+		</tr>
+	 </table>
+	 <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+	 <div class="datagrid" ng-include="'partials/carga/componente/tabela.html'"></div>
+</div>
+<br /><br /> 
+

@@ -1,0 +1,15 @@
+	.rsi path {
+        fill: none;
+        stroke-width: 1;
+    }
+    .rsi {
+        stroke: #000000;
+    }
+    .rsi path.overbought, .rsi path.oversold {
+        stroke: #FF9999;
+        stroke-dasharray: 5, 5;
+    }
+    .rsi path.middle, path.zero {
+        stroke: #BBBBBB;
+        stroke-dasharray: 5, 5;
+    }
