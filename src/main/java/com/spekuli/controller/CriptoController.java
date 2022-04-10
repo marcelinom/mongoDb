@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.spekuli.exception.RegraNegocioException;
 import com.spekuli.model.dto.AnaliseGrafica;
 import com.spekuli.model.entity.Cripto;
+import com.spekuli.model.entity.Mutex;
 import com.spekuli.service.impl.CalculoServiceImpl;
 import com.spekuli.service.impl.CandleBinanceServiceImpl;
 import com.spekuli.service.impl.CandleStreamBinanceServiceImpl;
@@ -62,6 +63,11 @@ public class CriptoController {
 	public ResponseEntity<AnaliseGrafica> ativarStreamDados(@PathVariable("fim") String fim) {
     	stream.mineData(LocalDate.parse(fim), Interval.ONE_MIN);
     	return ResponseEntity.ok().build();
+	}
+	
+	@PutMapping("/criaMutex/{id}")
+	public ResponseEntity<Mutex> criaMutex(@PathVariable("id") String id) {
+    	return ResponseEntity.ok().body(stream.criaMutex(id));
 	}
 	
 	@PostMapping("/temporal/{codigo}/{hora}/{valor}")

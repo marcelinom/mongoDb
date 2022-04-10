@@ -11,6 +11,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.spekuli.model.dao.MutexCustomRepository;
 import com.spekuli.model.dao.ScalperRepository;
+import com.spekuli.model.entity.Mutex;
 import com.spekuli.model.entity.Scalper;
 import com.spekuli.service.CandleStreamBinanceService;
 import com.spekuli.util.Interval;
@@ -55,6 +56,13 @@ public class CandleStreamBinanceServiceImpl implements CandleStreamBinanceServic
         
 		if (client != null) client.closeAllConnections();
 		mxRepo.unlock();
+    }
+
+	public Mutex criaMutex(String id) {        
+		Mutex mx = new Mutex();
+		mx.setId(id);
+		mx.setStatus(Mutex.Status.IDLE);
+		return mxRepo.save(mx);
     }
 
     @SuppressWarnings("unchecked")
