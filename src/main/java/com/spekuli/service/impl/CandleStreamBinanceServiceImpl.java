@@ -25,7 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 public class CandleStreamBinanceServiceImpl implements CandleStreamBinanceService {
     private final ScalperRepository repository;
     private final MutexCustomRepository mxRepo;
-    public static WebsocketClientImpl client;
+    private static WebsocketClientImpl client;
 
 	public void mineData(LocalDate end, Interval interval) {
         log.info("Mine data for: {} to: {} for {} with interval: {}", end, interval);
@@ -52,11 +52,9 @@ public class CandleStreamBinanceServiceImpl implements CandleStreamBinanceServic
 
 	public void stopMineData() {
         log.info("Stopping Mine data");
-		if (client != null) {
-			if (mxRepo.unlock() != null) {
-		        client.closeAllConnections();
-			}
-		}
+        
+		if (client != null) client.closeAllConnections();
+		mxRepo.unlock();
     }
 
     @SuppressWarnings("unchecked")
