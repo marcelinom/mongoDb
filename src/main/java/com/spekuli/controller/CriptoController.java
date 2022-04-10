@@ -74,9 +74,7 @@ public class CriptoController {
     	String[] sInicio = inicio.split("-");
     	String[] sFim = fim.split("-");
 
-		if (stream.client == null) {
-			stream.mineData(LocalDate.parse(fim), Interval.ONE_MIN);
-		}
+		stream.mineData(LocalDate.parse(fim), Interval.ONE_MIN);
 		
 		TimeSeries series = cripto.buscaScalper(codigo.toUpperCase().trim(),
 	    			new GregorianCalendar(Integer.valueOf(sInicio[0]),Integer.valueOf(sInicio[1])-1,Integer.valueOf(sInicio[2])).getTime(), 
