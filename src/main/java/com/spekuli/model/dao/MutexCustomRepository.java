@@ -2,6 +2,8 @@ package com.spekuli.model.dao;
 
 import java.time.LocalDateTime;
 
+import javax.annotation.PreDestroy;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -12,13 +14,22 @@ import org.springframework.stereotype.Component;
 
 import com.spekuli.model.entity.Mutex;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Component
+@Slf4j
 public class MutexCustomRepository {
 	@Autowired private MongoTemplate template;
 	
 	@Value("${instance.id}")
 	private String owner;
 	
+	@PreDestroy
+	public void destroy() {
+        log.info("Finalizando stream");
+		unlock();
+	}
+		
 	public Mutex lock() {
 		Update update = new Update();
 		update.set("status", Mutex.Status.BUSY);
