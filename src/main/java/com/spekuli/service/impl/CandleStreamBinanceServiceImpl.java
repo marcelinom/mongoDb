@@ -39,14 +39,26 @@ public class CandleStreamBinanceServiceImpl implements CandleStreamBinanceServic
 					streams.add(coin.getCode().toLowerCase()+"@kline_"+interval.getCode());			
 				}
 				
-				client.combineStreams(streams, ((event) -> {
-					Scalper tick = extractCandles(event);
-					if (tick != null && tick.isGravar()) {
-						repository.save(tick);
-					    System.out.println("*****gravado!");
-					}
-				    System.out.println(event);
-				}));
+				client.combineStreams(streams, 
+						((event) -> {
+							log.info("OpenCallback: {}", event);
+						}),
+						((event) -> {
+							Scalper tick = extractCandles(event);
+							if (tick != null && tick.isGravar()) {
+								repository.save(tick);
+								log.info("evento gravado: {}", event);
+							}
+						}),
+						((event) -> {
+							log.info("onClosingCallback:  {}", event);
+							stopMineData();
+						}),
+						((event) -> {
+							log.info("onFailureCallback:  {}", event);
+							stopMineData();
+						})
+				);
 			}
 		}
     }
